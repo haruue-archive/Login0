@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Login0</string>
+    <string name="tip_login_first">请先登录</string>
+    <string name="login">登录</string>
+    <string name="input_mobile_number">输入手机号</string>
+    <string name="input_password">输入密码</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="register_now">立即用手机号注册</string>
+    <string name="mobile_number">手机号</string>
+    <string name="password">密码</string>
+    <string name="blank" />
+    <string name="login_error_username_or_psw_empty">错误: 用户名或密码为空</string>
+    <string name="login_error_nickname_or_psw_empty">错误: 昵称或密码为空</string>
+    <string name="tip_username_empty">用户名不能为空</string>
+    <string name="tip_nickname_empty">昵称不能为空</string>
+    <string name="tip_password_empty">密码不能为空</string>
+    <string name="tip_reset_password">如需重置密码请贿赂管理员。</string>
+    <string name="register">注册</string>
+    <string name="input_nickname">输入昵称</string>
+    <string name="nickname">昵称</string>
+</resources>
