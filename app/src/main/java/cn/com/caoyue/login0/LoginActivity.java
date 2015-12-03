@@ -94,12 +94,22 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+        //在密码框上按下回车键设置
+        passwordEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
         //[立即用手机号注册]按钮
         findViewById(R.id.textview_check_to_register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RegisterActivity.actionStart(LoginActivity.this);
-
             }
         });
         //[登录]按钮
@@ -129,12 +139,12 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //返回键功能设定
         if (keyCode == KeyEvent.KEYCODE_BACK && getIntent().getBooleanExtra("isBackToExit", true)) {
             ActivityCollector.finishAll();
-        } else {
-            super.onKeyDown(keyCode, event);
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
