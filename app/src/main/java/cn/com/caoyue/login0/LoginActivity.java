@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tipOnUsername.setTextColor(LoginActivity.this.getResources().getColor(R.color.colorAccent));
                 if (s.toString().isEmpty() && count == 0) {
                     tipOnUsername.setText(R.string.blank);
                 } else {
@@ -63,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tipOnPassword.setTextColor(LoginActivity.this.getResources().getColor(R.color.colorAccent));
                 if (s.toString().isEmpty() && count == 0) {
                     tipOnPassword.setText(R.string.blank);
                 } else {
@@ -130,10 +132,12 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), R.string.login_error_username_or_psw_empty, Toast.LENGTH_SHORT).show();
             if (username.isEmpty()) {
                 TextView tipOnUsername = (TextView) findViewById(R.id.tip_on_username);
+                tipOnUsername.setTextColor(this.getResources().getColor(R.color.colorWarning));
                 tipOnUsername.setText(R.string.tip_username_empty);
             }
             if (password.isEmpty()) {
                 TextView tipOnPassword = (TextView) findViewById(R.id.tip_on_password);
+                tipOnPassword.setTextColor(this.getResources().getColor(R.color.colorWarning));
                 tipOnPassword.setText(R.string.tip_password_empty);
             }
             return;
