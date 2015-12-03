@@ -26,9 +26,22 @@ public class LoginActivity extends AppCompatActivity {
         ActivityCollector.addActivity(this);
         setContentView(R.layout.activity_login);
         //初始化界面
+        //Toolbar 相关
         Toolbar toolbarWithBack = (Toolbar) findViewById(R.id.toolbar_with_back_inLogin);
         toolbarWithBack.setTitle(R.string.login);
         setSupportActionBar(toolbarWithBack);
+        toolbarWithBack.setNavigationIcon(R.mipmap.return_icon);
+        toolbarWithBack.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getIntent().getBooleanExtra("isBackToExit", true)) {
+                    ActivityCollector.finishAll();
+                } else {
+                    finish();
+                }
+            }
+        });
+        //控件相关
         final EditText usernameEditText = (EditText) findViewById(R.id.username_edit_text);
         final EditText passwordEditText = (EditText) findViewById(R.id.password_edit_text);
         usernameEditText.setText(getIntent().getStringExtra("username"));
