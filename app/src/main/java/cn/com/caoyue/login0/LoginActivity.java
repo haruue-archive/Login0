@@ -2,6 +2,8 @@ package cn.com.caoyue.login0;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +15,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.UnsupportedEncodingException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -142,5 +146,30 @@ public class LoginActivity extends AppCompatActivity {
             }
             return;
         }
+        //密码MD5处理
+        String passwordMD5;
+        try {
+            passwordMD5 = com.jude.utils.JUtils.MD5(password.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            Toast.makeText(getApplicationContext(), R.string.password_MD5_error, Toast.LENGTH_LONG).show();
+            Log.e("passwordMD5_Error", e.toString());
+            return;
+        }
+        //获取数据库
+        UserDatabase userDatabase = new UserDatabase(LoginActivity.this, "UserDatabase.db", null, 2);
+        SQLiteDatabase db = userDatabase.getWritableDatabase();
+        //检查用户名和密码
+        Cursor cursor = db.query("UserDatabase", new String[]{"username,password"}, "username=? and password=?", new String[]{username, passwordMD5}, null, null, null);
+        if (cursor.moveToFirst()) {
+            Toast.makeText(getApplicationContext(), R.string.login_success, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.login_failed_username_or_password_error, Toast.LENGTH_LONG).show();
+            TextView tipOnUsername = (TextView) findViewById(R.id.tip_on_username);
+            tipOnUsername.setTextColor(this.getResources().getColor(R.color.colorWarning));
+            tipOnUsername.setText(R.string.login_failed_username_or_password_error);
+            cursor.close();
+            return;
+        }
+        cursor.close();
     }
 }

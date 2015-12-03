@@ -20,12 +20,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityCollector.addActivity(this);
         setContentView(R.layout.activity_main);
-        Toolbar toolbarWithBack = (Toolbar) findViewById(R.id.toolbar_with_back_inMain);
-        setSupportActionBar(toolbarWithBack);
+        //建表
+        UserDatabase userDatabase = new UserDatabase(this, "UserDatabase.db", null, 2);
+        userDatabase.getWritableDatabase();
+        //检测是否登陆，没登陆就滚去登陆
         if (!getIsLogin()) {
             ((TextView) findViewById(R.id.tip_is_login)).setText(R.string.tip_login_first);
             LoginActivity.actionStart(MainActivity.this, oldUsername, oldPassword, true);
         }
+        //Toolbar 显示
+        Toolbar toolbarWithBack = (Toolbar) findViewById(R.id.toolbar_with_back_inMain);
+        setSupportActionBar(toolbarWithBack);
     }
 
     private boolean getIsLogin() {

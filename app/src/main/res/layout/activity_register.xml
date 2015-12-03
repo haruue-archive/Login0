@@ -18,6 +18,29 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tip_on_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginStart="15dp"
+                android:textSize="12sp"
+                android:textColor="@color/colorAccent"
+                android:text="@string/blank" />
+
+            <EditText
+                android:id="@+id/username_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:hint="@string/input_mobile_number"
+                android:inputType="number"
+                android:maxLength="11"
+                android:singleLine="true" />
+
+            <TextView
                 android:id="@+id/tip_on_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,6 +59,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:hint="@string/nickname"
+                android:maxLength="30"
                 android:singleLine="true" />
 
             <TextView
@@ -58,6 +82,7 @@
                 android:layout_marginRight="15dp"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:maxLength="16"
                 android:singleLine="true" />
 
             <RelativeLayout
