@@ -1,5 +1,8 @@
 package cn.com.caoyue.login0;
 
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,22 +22,40 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityCollector.addActivity(this);
-        setContentView(R.layout.activity_main);
         //建表
         UserDatabase userDatabase = new UserDatabase(this, "UserDatabase.db", null, 2);
         userDatabase.getWritableDatabase();
-        //检测是否登陆，没登陆就滚去登陆
+        //检测是否登录，没登录就滚去登录
         if (!getIsLogin()) {
-            ((TextView) findViewById(R.id.tip_is_login)).setText(R.string.tip_login_first);
+            finish();
             LoginActivity.actionStart(MainActivity.this, oldUsername, oldPassword, true);
+        } else {
+            finish();
+            AccountActivity.actionStart(MainActivity.this, oldUsername);
         }
-        //Toolbar 显示
-        Toolbar toolbarWithBack = (Toolbar) findViewById(R.id.toolbar_with_back_inMain);
-        setSupportActionBar(toolbarWithBack);
     }
 
     private boolean getIsLogin() {
-        return false;
+        //查询 SharedPreferences
+        SharedPreferences reader = getSharedPreferences("userinfo", MODE_PRIVATE);
+        String username = reader.getString("username", "");
+        this.oldUsername = username;
+        String passwordMD5 = reader.getString("password", "").replaceAll(" ", "");
+        if (username.isEmpty() || passwordMD5.isEmpty()) {
+            return false;
+        }
+        //查询表
+        //获取数据库
+        UserDatabase userDatabase = new UserDatabase(MainActivity.this, "UserDatabase.db", null, 2);
+        SQLiteDatabase db = userDatabase.getWritableDatabase();
+        //检查用户名和密码
+        Cursor cursor = db.query("UserDatabase", new String[]{"username,password"}, "username=? and password=?", new String[]{username, passwordMD5}, null, null, null);
+        if (!cursor.moveToFirst()) {
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
     }
 
     @Override

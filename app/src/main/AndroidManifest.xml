@@ -29,6 +29,11 @@
 
         </activity>
 
+        <activity
+            android:name=".AccountActivity"
+            android:label="AccountActivity">
+
+        </activity>
     </application>
 
 </manifest>

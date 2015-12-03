@@ -2,6 +2,7 @@ package cn.com.caoyue.login0;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -183,9 +184,7 @@ public class LoginActivity extends AppCompatActivity {
         SQLiteDatabase db = userDatabase.getWritableDatabase();
         //检查用户名和密码
         Cursor cursor = db.query("UserDatabase", new String[]{"username,password"}, "username=? and password=?", new String[]{username, passwordMD5}, null, null, null);
-        if (cursor.moveToFirst()) {
-            Toast.makeText(getApplicationContext(), R.string.login_success, Toast.LENGTH_LONG).show();
-        } else {
+        if (!cursor.moveToFirst()) {
             Toast.makeText(getApplicationContext(), R.string.login_failed_username_or_password_error, Toast.LENGTH_LONG).show();
             TextView tipOnUsername = (TextView) findViewById(R.id.tip_on_username);
             tipOnUsername.setTextColor(this.getResources().getColor(R.color.colorWarning));
@@ -194,5 +193,13 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         cursor.close();
+        //加入自动登录
+        SharedPreferences.Editor editor = getSharedPreferences("userinfo", MODE_PRIVATE).edit();
+        editor.putString("username", username);
+        editor.putString("password", passwordMD5);
+        editor.apply();
+        Toast.makeText(getApplicationContext(), R.string.login_success, Toast.LENGTH_SHORT).show();
+        finish();
+        AccountActivity.actionStart(LoginActivity.this, username);
     }
 }
