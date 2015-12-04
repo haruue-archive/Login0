@@ -32,4 +32,21 @@
     <string name="logout_success">您已成功登出！</string>
     <string name="delete_account_warning">此操作将会把你的帐号资料从数据库彻底删除，除非您重新注册，您将无法使用该帐号进行登录，是否继续？</string>
     <string name="delete_account_success">帐号删除成功！</string>
+    <string name="exit_app">退出程序</string>
+    <string name="change_password_tip_old">输入您的旧密码</string>
+    <string name="change_password_tip_new">输入您的新密码</string>
+    <string name="change_password_tip_new_again">再次输入以确认您的新密码</string>
+    <string name="old_password">旧密码：</string>
+    <string name="new_password">新密码：</string>
+    <string name="new_password_again">确认新密码：</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="ok">确认</string>
+    <string name="cancel">取消</string>
+    <string name="error_password_again_diff">错误：两次输入的新密码不一致</string>
+    <string name="error_old_password">错误：旧密码错误</string>
+    <string name="password_change_success">密码修改成功！</string>
+    <string name="change_password_error_input_empty">错误：旧密码、新密码和确认新密码均不能为空</string>
+    <string name="error_old_new_password_same">错误：您输入的旧密码和新密码相同，出现该提示并不意味着你输入的旧密码是正确的</string>
+    <string name="remember_me">记住我</string>
 </resources>

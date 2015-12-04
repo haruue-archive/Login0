@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -173,7 +174,7 @@ public class LoginActivity extends AppCompatActivity {
         //密码MD5处理
         String passwordMD5;
         try {
-            passwordMD5 = com.jude.utils.JUtils.MD5(password.getBytes("UTF-8"));
+            passwordMD5 = com.jude.utils.JUtils.MD5(password.getBytes("UTF-8")).replace(" ", "");
         } catch (UnsupportedEncodingException e) {
             Toast.makeText(getApplicationContext(), R.string.password_MD5_error, Toast.LENGTH_LONG).show();
             Log.e("passwordMD5_Error", e.toString());
@@ -194,10 +195,12 @@ public class LoginActivity extends AppCompatActivity {
         }
         cursor.close();
         //加入自动登录
-        SharedPreferences.Editor editor = getSharedPreferences("userinfo", MODE_PRIVATE).edit();
-        editor.putString("username", username);
-        editor.putString("password", passwordMD5);
-        editor.apply();
+        if (((CheckBox) findViewById(R.id.checkbox_remember_me)).isChecked()) {
+            SharedPreferences.Editor editor = getSharedPreferences("userinfo", MODE_PRIVATE).edit();
+            editor.putString("username", username);
+            editor.putString("password", passwordMD5);
+            editor.apply();
+        }
         Toast.makeText(getApplicationContext(), R.string.login_success, Toast.LENGTH_SHORT).show();
         finish();
         AccountActivity.actionStart(LoginActivity.this, username);
