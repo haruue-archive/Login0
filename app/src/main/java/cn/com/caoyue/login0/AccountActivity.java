@@ -52,6 +52,7 @@ public class AccountActivity extends AppCompatActivity {
             return;
         }
         String nickname = cursor.getString(cursor.getColumnIndex("nickname"));
+        cursor.close();
         ((TextView) findViewById(R.id.account_info_username)).setText(nickname);
         //[退出程序]按钮
         ((Button) findViewById(R.id.button_exit)).setOnClickListener(new View.OnClickListener() {
@@ -110,7 +111,7 @@ public class AccountActivity extends AppCompatActivity {
                 builder.create().show();
             }
         });
-        //[密码修改]按钮
+        //[修改密码]按钮
         ((Button) findViewById(R.id.button_change_password)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,6 +168,53 @@ public class AccountActivity extends AppCompatActivity {
                         editor.remove("password");
                         editor.apply();
                         Toast.makeText(getApplicationContext(), R.string.password_change_success, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+            }
+        });
+        //[修改昵称]按钮
+        ((Button) findViewById(R.id.button_change_nickname)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(AccountActivity.this);
+                builder.setTitle(R.string.change_nickname);
+                final View nicknameChangeView = LayoutInflater.from(AccountActivity.this).inflate(R.layout.dialog_change_nickname, null);
+                builder.setView(nicknameChangeView);
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String newNickname = ((EditText) nicknameChangeView.findViewById(R.id.new_nickname_edit_text)).getText().toString();
+                        //检查是否为空
+                        if (newNickname.isEmpty()) {
+                            Toast.makeText(getApplicationContext(), R.string.new_nickname_empty, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        //打开数据库
+                        UserDatabase userDatabase = new UserDatabase(AccountActivity.this, "UserDatabase.db", null, 2);
+                        SQLiteDatabase db = userDatabase.getWritableDatabase();
+                        ContentValues values = new ContentValues();
+                        values.put("nickname", newNickname);
+                        db.update("UserDatabase", values, "username=?", new String[]{username});
+                        Toast.makeText(getApplicationContext(), R.string.change_nickname_success, Toast.LENGTH_SHORT).show();
+                        //昵称显示
+                        Cursor cursor = db.query("UserDatabase", new String[]{"username", "nickname"}, "username=?", new String[]{username}, null, null, null);
+                        if (!cursor.moveToFirst()) {
+                            cursor.close();
+                            finish();
+                            LoginActivity.actionStart(AccountActivity.this, username, "", true);
+                            return;
+                        }
+                        String nickname = cursor.getString(cursor.getColumnIndex("nickname"));
+                        cursor.close();
+                        ((TextView) findViewById(R.id.account_info_username)).setText(nickname);
                         dialog.dismiss();
                     }
                 });

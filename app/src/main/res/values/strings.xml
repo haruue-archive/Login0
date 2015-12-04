@@ -24,7 +24,7 @@
     <string name="login_failed_username_or_password_error">用户名或密码错误</string>
     <string name="register_success">注册成功！</string>
     <string name="account_manage">账户管理</string>
-    <string name="change_password">密码修改</string>
+    <string name="change_password">修改密码</string>
     <string name="logout">登出</string>
     <string name="hello">您好,</string>
     <string name="delete_account">彻底删除帐号</string>
@@ -48,4 +48,9 @@
     <string name="change_password_error_input_empty">错误：旧密码、新密码和确认新密码均不能为空</string>
     <string name="error_old_new_password_same">错误：您输入的旧密码和新密码相同，出现该提示并不意味着你输入的旧密码是正确的</string>
     <string name="remember_me">记住我</string>
+    <string name="change_nickname">修改昵称</string>
+    <string name="new_nickname">新昵称：</string>
+    <string name="input_new_nickname">输入新昵称</string>
+    <string name="new_nickname_empty">错误：必须填写新昵称</string>
+    <string name="change_nickname_success">昵称修改成功！</string>
 </resources>
