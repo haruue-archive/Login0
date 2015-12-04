@@ -46,7 +46,6 @@ public class AccountActivity extends AppCompatActivity {
         SQLiteDatabase db = userDatabase.getWritableDatabase();
         Cursor cursor = db.query("UserDatabase", new String[]{"username", "nickname"}, "username=?", new String[]{username}, null, null, null);
         if (!cursor.moveToFirst()) {
-            Toast.makeText(getApplicationContext(), R.string.database_error, Toast.LENGTH_LONG).show();
             cursor.close();
             finish();
             LoginActivity.actionStart(AccountActivity.this, username, "", true);
@@ -176,5 +175,11 @@ public class AccountActivity extends AppCompatActivity {
         Intent intent = new Intent(context, AccountActivity.class);
         intent.putExtra("username", username);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
     }
 }
