@@ -90,6 +90,11 @@ public class AccountActivity extends AppCompatActivity {
                         UserDatabase userDatabase = new UserDatabase(AccountActivity.this, "UserDatabase.db", null, 2);
                         SQLiteDatabase db = userDatabase.getWritableDatabase();
                         db.delete("UserDatabase", "username=?", new String[]{username});
+                        //清除 SharedPreferences 信息
+                        SharedPreferences.Editor editor = getSharedPreferences("userinfo", MODE_PRIVATE).edit();
+                        editor.remove("username");
+                        editor.remove("password");
+                        editor.apply();
                         dialog.dismiss();
                         Toast.makeText(getApplicationContext(), R.string.delete_account_success, Toast.LENGTH_SHORT).show();
                         AccountActivity.this.finish();
@@ -128,7 +133,7 @@ public class AccountActivity extends AppCompatActivity {
                             return;
                         }
                         if (oldPassword.equals(newPassword)) {
-                            Toast.makeText(getApplicationContext(), R.string.error_old_new_password_same, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.error_old_new_password_same, Toast.LENGTH_LONG).show();
                             return;
                         }
                         //密码MD5处理
@@ -156,7 +161,13 @@ public class AccountActivity extends AppCompatActivity {
                         ContentValues values = new ContentValues();
                         values.put("password", newPasswordMD5);
                         db.update("UserDatabase", values, "username=?", new String[]{username});
+                        //清除 SharedPreferences 信息
+                        SharedPreferences.Editor editor = getSharedPreferences("userinfo", MODE_PRIVATE).edit();
+                        editor.remove("username");
+                        editor.remove("password");
+                        editor.apply();
                         Toast.makeText(getApplicationContext(), R.string.password_change_success, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
                     }
                 });
                 builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

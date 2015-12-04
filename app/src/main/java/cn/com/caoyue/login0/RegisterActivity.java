@@ -106,8 +106,10 @@ public class RegisterActivity extends AppCompatActivity {
         passwordEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
                     register(usernameEditText.getText().toString(), nicknameEditText.getText().toString(), passwordEditText.getText().toString());
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                     return true;
                 }
                 return false;
@@ -186,5 +188,24 @@ public class RegisterActivity extends AppCompatActivity {
         values.clear();
         Toast.makeText(getApplicationContext(), R.string.register_success, Toast.LENGTH_LONG).show();
         finish();
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        //返回键功能设定
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            ActivityCollector.finishAll();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true;
+        }
+        return false;
     }
 }

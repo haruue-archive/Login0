@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (getIntent().getBooleanExtra("isBackToExit", true)) {
+                    finish();
                     ActivityCollector.finishAll();
                 } else {
                     finish();
@@ -100,8 +101,10 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
                     login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                     return true;
                 }
                 return false;
@@ -140,10 +143,19 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
         //返回键功能设定
         if (keyCode == KeyEvent.KEYCODE_BACK && getIntent().getBooleanExtra("isBackToExit", true)) {
+            finish();
             ActivityCollector.finishAll();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             return true;
         }
         return false;
