@@ -195,7 +195,6 @@ public class RegisterActivity extends AppCompatActivity {
         //返回键功能设定
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
-            ActivityCollector.finishAll();
             return true;
         }
         return false;
