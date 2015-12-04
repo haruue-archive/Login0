@@ -11,8 +11,8 @@
 UI真心丑，这次就叫Login0好了，但愿以后还会有Login1, Login2,... , LoginN    
 如果你发现了任何BUG，欢迎提交[issue](https://github.com/haruue/Login0/issues)，万分感谢
 ## Developed by
-Haruue Icymoon <haruue@caoyue.com.cn>
-本项目作为红岩网校移动开发部第 8 次作业。
+Haruue Icymoon <haruue@caoyue.com.cn>    
+本项目作为红岩网校移动开发部第 8 次作业。    
 <!--
 * * * * * * * * * * * * * * * * * * * * * * * *
 * REDROCK-TEAM HOMEWORK 8 (20151130)          *
