@@ -25,6 +25,7 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginBottom="0dp"
                 android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
                 android:textSize="12sp"
                 android:textColor="@color/colorAccent"
                 android:text="@string/blank" />
@@ -48,6 +49,7 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginBottom="0dp"
                 android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
                 android:textSize="12sp"
                 android:textColor="@color/colorAccent"
                 android:text="@string/blank" />
@@ -70,6 +72,7 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginBottom="0dp"
                 android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
                 android:textSize="12sp"
                 android:textColor="@color/colorAccent"
                 android:text="@string/blank" />
